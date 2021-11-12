@@ -1,15 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom'
 
 const initialState = {
-    credentials: {
-        username: '',
-        password: ''
-    }
+    username: '',
+    password: ''
 }
 
+
+const initialErrors = { 
+    submit: ""
+}
 const Login = () => {
 
     const [ login, setLogin ] = useState(initialState);
@@ -19,25 +21,22 @@ const Login = () => {
 
 
     const handleChange = event => {
-        setState({
-            credentials: {
-            ...state.credentials,
+        setLogin({
+            ...login,
             [event.target.name]: event.target.value
-            }
         })
     }
 
     const handleLogin = event => {
         event.preventDefault();
-        axios.post('http://localhost:5000/api/login', state.credentials)
+        axios.post('http://localhost:5000/api/login', state)
             .then(response => {
                 localStorage.setItem('token', response.data.token);
-                localStorage.setItem('token', response.data.username);
-                localStorage.setItem('role', response.data.role);
+                setError({submit: ""});
                 push('/view');
             })
             .catch(error => {
-                setError(error.response.data.error)
+                setError({ ...error, submit: "Incorrect Credentials"})
             })
     }
 
@@ -59,7 +58,7 @@ const Login = () => {
                             id='username'
                             type='text'
                             name='username'
-                            value={state.credentials.username}
+                            value={login.username}
                             onChange={handleChange}
                         />
                     </Label>
@@ -69,12 +68,12 @@ const Login = () => {
                             id='password'
                             type='password'
                             name='password'
-                            value={state.credentials.password}
+                            value={login.password}
                             onChange={handleChange}
                         />
                     </Label>
                     <Button id='submit' onSubmit = { handleSubmit }>Log in</Button>
-                    <p id='error'>{error.submit}</p>
+                    <p id='error'>{ error.submit }</p>
 
                 </FormGroup>
             </div>

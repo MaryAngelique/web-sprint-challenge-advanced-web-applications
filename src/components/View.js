@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-
+import axiosWithAuth from '../utils/axiosWithAuth';
 import Article from './Article';
 import EditForm from './EditForm';
+import articleService from '../services/articleServices';
 
 const View = (props) => {
     const [articles, setArticles] = useState([]);
@@ -10,6 +11,14 @@ const View = (props) => {
     const [editId, setEditId] = useState();
 
     const handleDelete = (id) => {
+        axiosWithAuth()
+            .delete(`http://localhost:5000/api/articles/${id}`)
+            .them(response => {
+                setArticles(response.data);
+
+            }).catch(error => {
+                console.error("Article Delete: FAILED", error);
+            })
     }
 
     const handleEdit = (article) => {
