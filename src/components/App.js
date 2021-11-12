@@ -14,11 +14,16 @@ const App = () => {
     <AppContainer>
       <LambdaHeader/>
       <Header/>
+      
+      {/* Basic Routing */}
       <RouteContainer>
-        <Route exact path="/">
-          <Login/>
-        </Route>          
+        <Route exact path="/" component = { Login } />
+        <Route path = "/login" component = { Login } /> 
+        <PrivateRoute path = "/view" component = { View } />
+        <PrivateRoute path = "/logout" component = { Logout } />
       </RouteContainer>
+
+      
     </AppContainer>
   )
 }
