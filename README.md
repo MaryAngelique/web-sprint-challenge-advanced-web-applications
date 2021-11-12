@@ -15,7 +15,7 @@ In this challenge you will create a login page and request a token from the serv
 ## Project Setup
 [x] Run npm install to install your dependencies.
 [x]  Run npm start to run your frontend and backend code automatically.
-[ ]  Note your backend code will run automatically when your run npm start. There is no need to seperately run a server.js file and no means to test the server through postman or the browser. Feel free to ignore any messages related to MSW or mock service workers.
+[x]  Note your backend code will run automatically when your run npm start. There is no need to seperately run a server.js file and no means to test the server through postman or the browser. Feel free to ignore any messages related to MSW or mock service workers.
 
 ## Project Instructions
 In this project, you will demonstrate your mastery of these skills by creating **a login page** and **basic CRUD application.** You will implement basic security using **token authentication** and build private routes within the applcation.
@@ -43,9 +43,9 @@ In this project, you will demonstrate your mastery of these skills by creating *
 * [x] Display an appropriate error message when login is not successful.
 
 ### Route Authentication
-* [ ] Build a `PrivateRoute` component within the components folder.
-* [ ] Use the `PrivateRoute` component to build a route rendering `View.js` to the path `/view`.
-* [ ] Use the `PrivateRoute` component to build a route rendering `Logout.js` to the path `/logout`.
+* [x] Build a `PrivateRoute` component within the components folder.
+* [x] Use the `PrivateRoute` component to build a route rendering `View.js` to the path `/view`.
+* [x] Use the `PrivateRoute` component to build a route rendering `Logout.js` to the path `/logout`.
 
 ### Request Authentication
 > *Complete the requests needed to execute all CRUD functions.*
