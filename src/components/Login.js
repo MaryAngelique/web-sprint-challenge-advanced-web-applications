@@ -40,6 +40,11 @@ const Login = () => {
                 setError(error.response.data.error)
             })
     }
+
+    const handleSubmit = event => {
+        event.preventDefault();
+        login();
+      };
     
     return(<ComponentContainer>
         <ModalContainer>
@@ -68,8 +73,8 @@ const Login = () => {
                             onChange={handleChange}
                         />
                     </Label>
-                    <Button id='submit'>Log in</Button>
-                    <p id='error'>{error}</p>
+                    <Button id='submit' onSubmit = { handleSubmit }>Log in</Button>
+                    <p id='error'>{error.submit}</p>
 
                 </FormGroup>
             </div>
