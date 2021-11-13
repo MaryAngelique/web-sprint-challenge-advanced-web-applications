@@ -10,10 +10,18 @@ const View = (props) => {
     const [editing, setEditing] = useState(false);
     const [editId, setEditId] = useState();
 
+    useEffect(() => {
+        const getArticles = async () => {
+          const articleResponse = await articleService();
+          setArticles(articleResponse.data);
+        };
+        getArticles();
+    }, []);
+
     const handleDelete = (id) => {
         axiosWithAuth()
             .delete(`http://localhost:5000/api/articles/${id}`)
-            .them(response => {
+            .then(response => {
                 setArticles(response.data);
 
             }).catch(error => {
@@ -22,6 +30,15 @@ const View = (props) => {
     }
 
     const handleEdit = (article) => {
+        axiosWithAuth()
+        .put(`http://localhost:5000/api/articles/${editId}`, article)
+        .then((response) => {
+          setEditing(false);
+          setArticles(response.data);
+        })
+        .catch((error) => {
+          console.error("Failed To Edit Article", error);
+        });
     }
 
     const handleEditSelect = (id)=> {

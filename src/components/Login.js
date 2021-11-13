@@ -8,10 +8,6 @@ const initialState = {
     password: ''
 }
 
-
-const initialErrors = { 
-    submit: ""
-}
 const Login = () => {
 
     const [ login, setLogin ] = useState(initialState);
@@ -29,21 +25,15 @@ const Login = () => {
 
     const handleLogin = event => {
         event.preventDefault();
-        axios.post('http://localhost:5000/api/login', state)
+        axios.post('http://localhost:5000/api/login', login)
             .then(response => {
                 localStorage.setItem('token', response.data.token);
-                setError({submit: ""});
                 push('/view');
             })
             .catch(error => {
-                setError({ ...error, submit: "Incorrect Credentials"})
+                setError(error.response.data.error);
             })
     }
-
-    const handleSubmit = event => {
-        event.preventDefault();
-        login();
-      };
     
     return(<ComponentContainer>
         <ModalContainer>
@@ -51,7 +41,7 @@ const Login = () => {
             <h2>Please enter your account information.</h2>
 
             <div className = "login-form">
-                <FormGroup>
+                <FormGroup onSubmit = { handleLogin }>
 
                 <Label> Username
                         <Input
@@ -72,8 +62,8 @@ const Login = () => {
                             onChange={handleChange}
                         />
                     </Label>
-                    <Button id='submit' onSubmit = { handleSubmit }>Log in</Button>
-                    <p id='error'>{ error.submit }</p>
+                    <Button id='submit'>Log in</Button>
+                    {error && <p id='error'>{ error }</p>}
 
                 </FormGroup>
             </div>
